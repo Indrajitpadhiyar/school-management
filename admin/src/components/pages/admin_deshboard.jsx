@@ -46,18 +46,16 @@ const AdminDashboard = () => {
   }
 
   return (
-    <main className="flex min-h-screen w-full bg-[#f8fafc] text-slate-900 selection:bg-indigo-100 selection:text-indigo-700">
-      {/* Sidebar - Sticky on Desktop */}
-      <div className="lg:sticky lg:top-0 lg:h-screen lg:shrink-0">
-        <DashboardSidebar
-          isOpen={isSidebarOpen}
-          setIsOpen={setIsSidebarOpen}
-          activeSection={activeSection}
-          setActiveSection={setActiveSection}
-        />
-      </div>
+    <main className="flex h-screen w-full overflow-hidden bg-[#f8fafc] text-slate-900 selection:bg-indigo-100 selection:text-indigo-700">
+      {/* Sidebar - Fixed/Flex on Desktop */}
+      <DashboardSidebar
+        isOpen={isSidebarOpen}
+        setIsOpen={setIsSidebarOpen}
+        activeSection={activeSection}
+        setActiveSection={setActiveSection}
+      />
 
-      <section className="flex flex-1 flex-col min-w-0">
+      <section className="flex flex-1 flex-col min-w-0 overflow-y-auto">
         <DashboardHeader onMenuClick={() => setIsSidebarOpen(true)} />
 
         <div className="flex-1 p-4 sm:p-6 lg:p-8 2xl:p-10">
