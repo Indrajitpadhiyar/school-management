@@ -1,5 +1,5 @@
 import { Megaphone, UserCheck, MessageSquare, CalendarPlus } from 'lucide-react'
-import { cn } from '../../utils'
+import { cn } from '../../../utils'
 
 const actions = [
   { title: 'Create Circular', icon: Megaphone, color: 'text-blue-600', bg: 'bg-blue-50' },

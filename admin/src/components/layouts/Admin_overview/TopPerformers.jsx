@@ -1,5 +1,5 @@
 import { Trophy, Star } from 'lucide-react'
-import { cn } from '../../utils'
+import { cn } from '../../../utils'
 
 const performers = [
   { name: 'Sarah Johnson', subject: 'Mathematics', score: 98, avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah' },

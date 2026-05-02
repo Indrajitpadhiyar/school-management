@@ -4,14 +4,14 @@ import NotificationsPanel from './NotificationsPanel'
 import StatsCards from './StatsCards'
 import QuickActions from './QuickActions'
 import TodaySchedule from './TodaySchedule'
-import DashboardWelcome from './DashboardWelcome'
+// import DashboardWelcome from './DashboardWelcome'
 import TopPerformers from './TopPerformers'
 
 const DashboardOverview = () => {
   return (
     <div className="space-y-6 sm:space-y-8 2xl:space-y-10">
       {/* Welcome Banner */}
-      <DashboardWelcome />
+      {/* <DashboardWelcome /> */}
       
       {/* Top Section: Stats */}
       <StatsCards />

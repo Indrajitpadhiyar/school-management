@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { Users, TrendingUp, DollarSign, Wallet, ArrowUpRight, ArrowDownRight } from 'lucide-react'
-import { cn } from '../../utils'
+import { cn } from '../../../utils'
 
 const cards = [
   { 

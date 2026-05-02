@@ -1,149 +1,144 @@
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { 
-  LayoutDashboard, 
-  Users, 
-  GraduationCap, 
-  Wallet, 
-  Receipt, 
-  UserPlus, 
-  Settings, 
+import { useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import {
+  LayoutDashboard,
+  Users,
+  GraduationCap,
+  Wallet,
+  Receipt,
+  UserPlus,
+  Settings,
   LogOut,
-  X,
-  School,
-  ChevronDown
-} from 'lucide-react'
-import { cn } from '../../utils'
+  ChevronDown,
+} from "lucide-react"
 
 const menuItems = [
-  { id: 'overview', label: 'Admin Overview', icon: LayoutDashboard, active: true },
-  { 
-    id: 'performance', 
-    label: 'Class Performance', 
-    icon: Users, 
-    active: false,
+  { id: "overview", label: "Admin Overview", icon: LayoutDashboard },
+  {
+    id: "performance",
+    label: "Class Performance",
+    icon: Users,
     subItems: [
-      { label: 'Primary Section', active: false },
-      { label: 'Middle Section', active: false },
-      { label: 'Senior Section', active: false },
-      { label: 'Academic Records', active: false },
-    ]
+      { id: "primary", label: "Primary Section" },
+      { id: "middle", label: "Middle Section" },
+      { id: "senior", label: "Senior Section" },
+      { id: "records", label: "Academic Records" },
+    ],
   },
-  { id: 'teachers', label: 'Teacher Performance', icon: GraduationCap, active: false },
-  { id: 'fees', label: 'School Fees', icon: Wallet, active: false },
-  { id: 'expenses', label: 'General Expenses', icon: Receipt, active: false },
-  { id: 'hiring', label: 'Hiring & Interviews', icon: UserPlus, active: false },
+  { id: "teachers", label: "Teacher Performance", icon: GraduationCap },
+  { id: "fees", label: "School Fees", icon: Wallet },
+  { id: "expenses", label: "General Expenses", icon: Receipt },
+  { id: "hiring", label: "Hiring & Interviews", icon: UserPlus },
 ]
 
-const DashboardSidebar = ({ isOpen, setIsOpen }) => {
-  const [expandedItem, setExpandedItem] = useState(null)
+const DashboardSidebar = ({ isOpen, setIsOpen, activeSection, setActiveSection }) => {
+  const [openMenu, setOpenMenu] = useState("performance")
 
-  const toggleExpand = (itemId) => {
-    setExpandedItem(expandedItem === itemId ? null : itemId)
+  const handleMainClick = (item) => {
+    setActiveSection(item.id)
+    if (item.subItems) {
+      setOpenMenu(openMenu === item.id ? "" : item.id)
+    }
+  }
+
+  const handleSubClick = (subId) => {
+    setActiveSection(subId)
+    if (window.innerWidth < 1024 && setIsOpen) {
+      setIsOpen(false)
+    }
   }
 
   return (
-    <>
-      <aside 
-        className={cn(
-          "fixed inset-y-0 left-0 z-50 w-[300px] bg-white border-r border-slate-200 transition-transform duration-300 ease-in-out lg:sticky lg:top-0 lg:h-screen lg:translate-x-0",
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        )}
-      >
-        <div className="flex flex-col h-full p-6">
-          {/* Logo Section */}
-          <div className="flex items-center justify-between mb-10 shrink-0">
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-600 shadow-lg shadow-indigo-200">
-                <School className="h-6 w-6 text-white" />
-              </div>
-              <div>
-                <h2 className="text-lg font-bold text-slate-900 leading-tight">EduMaster</h2>
-                <p className="text-xs font-medium text-slate-500">Admin Panel</p>
-              </div>
-            </div>
-            <button 
-              onClick={() => setIsOpen(false)}
-              className="p-2 rounded-lg hover:bg-slate-100 lg:hidden text-slate-500"
-            >
-              <X size={20} />
-            </button>
-          </div>
+    <aside className={`fixed inset-y-0 left-0 z-50 flex w-[260px] flex-col border-r border-slate-200 bg-white transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 ${isOpen ? "translate-x-0" : "-translate-x-full"}`}>
+      <div className="mb-8 flex items-center gap-3 px-6 py-6">
+        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-indigo-600 text-white shadow-sm">
+          <LayoutDashboard size={24} />
+        </div>
+        <div>
+          <h1 className="text-xl font-bold text-slate-900">EduMaster</h1>
+          <p className="text-sm text-slate-500">Admin Panel</p>
+        </div>
+      </div>
 
-          {/* Navigation */}
-          <nav className="flex-1 space-y-1.5 overflow-y-auto pr-2 custom-scrollbar">
-            {menuItems.map((item) => (
-              <div key={item.id} className="space-y-1">
-                <button
-                  onClick={() => item.subItems ? toggleExpand(item.id) : null}
-                  className={cn(
-                    "flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold transition-all duration-200 group",
-                    item.active
-                      ? "bg-indigo-50 text-indigo-700"
-                      : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
-                  )}
-                >
-                  <item.icon className={cn(
-                    "h-5 w-5 transition-colors",
-                    item.active ? "text-indigo-600" : "text-slate-400 group-hover:text-slate-600"
-                  )} />
-                  <span>{item.label}</span>
-                  
-                  {item.subItems ? (
-                    <ChevronDown className={cn(
-                      "ml-auto h-4 w-4 transition-transform duration-200",
-                      expandedItem === item.id ? "rotate-180" : ""
-                    )} />
-                  ) : (
-                    item.active && (
-                      <motion.div 
-                        layoutId="activeTab"
-                        className="ml-auto h-1.5 w-1.5 rounded-full bg-indigo-600"
-                      />
-                    )
-                  )}
-                </button>
+      <nav className="flex-1 space-y-1.5 overflow-y-auto px-4 pb-4">
+        {menuItems.map((item) => {
+          const Icon = item.icon
+          const isActive = activeSection === item.id
+          const hasActiveSubItem = item.subItems?.some(
+            (sub) => sub.id === activeSection
+          )
+          const isMenuOpen = openMenu === item.id
 
-                {/* Sub-items with animation */}
-                <AnimatePresence>
-                  {item.subItems && expandedItem === item.id && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                      className="overflow-hidden pl-11 space-y-1"
-                    >
+          return (
+            <div key={item.id}>
+              <button
+                onClick={() => handleMainClick(item)}
+                className={`group flex w-full items-center justify-between rounded-xl px-4 py-3 text-left font-medium transition-colors ${
+                  isActive || hasActiveSubItem
+                    ? "bg-indigo-50 text-indigo-700"
+                    : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                }`}
+              >
+                <span className="flex items-center gap-3">
+                  <Icon size={20} className={isActive || hasActiveSubItem ? "text-indigo-600" : "text-slate-400 group-hover:text-slate-600"} />
+                  {item.label}
+                </span>
+
+                {item.subItems && (
+                  <motion.div
+                    animate={{ rotate: isMenuOpen ? 180 : 0 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                  >
+                    <ChevronDown size={16} className="text-slate-400" />
+                  </motion.div>
+                )}
+              </button>
+
+              <AnimatePresence>
+                {item.subItems && isMenuOpen && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    className="overflow-hidden"
+                  >
+                    <div className="mt-1 flex flex-col space-y-1 pl-11 pr-3">
                       {item.subItems.map((sub) => (
                         <button
-                          key={sub.label}
-                          className="flex w-full items-center py-2 text-xs font-medium text-slate-500 hover:text-indigo-600 transition-colors"
+                          key={sub.id}
+                          onClick={() => handleSubClick(sub.id)}
+                          className={`block w-full rounded-lg px-3 py-2.5 text-left text-sm font-medium transition-colors ${
+                            activeSection === sub.id
+                              ? "bg-indigo-50 text-indigo-700"
+                              : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"
+                          }`}
                         >
                           {sub.label}
                         </button>
                       ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            ))}
-          </nav>
-
-          {/* Footer Actions */}
-          <div className="mt-auto pt-6 border-t border-slate-100 shrink-0">
-            <div className="space-y-1.5">
-              <button className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors group">
-                <Settings className="h-5 w-5 text-slate-400 group-hover:text-slate-600 transition-colors" />
-                <span>Settings</span>
-              </button>
-              <button className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold text-rose-600 hover:bg-rose-50 transition-colors group">
-                <LogOut className="h-5 w-5 text-rose-400 group-hover:text-rose-600 transition-colors" />
-                <span>Sign Out</span>
-              </button>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
-          </div>
+          )
+        })}
+      </nav>
+
+      <div className="shrink-0 border-t border-slate-100 p-4">
+        <div className="space-y-1">
+          <button className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-50 hover:text-slate-900">
+            <Settings size={20} className="text-slate-400" />
+            Settings
+          </button>
+          <button className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-rose-600 transition-colors hover:bg-rose-50 hover:text-rose-700">
+            <LogOut size={20} className="text-rose-400" />
+            Sign Out
+          </button>
         </div>
-      </aside>
-    </>
+      </div>
+    </aside>
   )
 }
 

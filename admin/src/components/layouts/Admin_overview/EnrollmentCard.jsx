@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
 import { GraduationCap } from 'lucide-react'
-import { cn } from '../../utils'
+import { cn } from '../../../utils'
 
 const enrollmentData = [
   { label: 'Primary', value: 470, color: '#6366f1' },

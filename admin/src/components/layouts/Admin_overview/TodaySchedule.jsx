@@ -1,5 +1,5 @@
 import { Clock, CalendarDays } from 'lucide-react'
-import { cn } from '../../utils'
+import { cn } from '../../../utils'
 
 const events = [
   { time: '09:30 AM', task: 'Morning Assembly Inspection', active: true },

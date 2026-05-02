@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { TrendingUp, Users } from 'lucide-react'
-import { cn } from '../../utils'
+import { cn } from '../../../utils'
 
 const attendanceData = [
   { day: 'Mon', present: 548, absent: 52 },
@@ -19,22 +19,26 @@ const paddingY = 40
 
 const AttendanceTrendCard = () => {
   const [activeIndex, setActiveIndex] = useState(4)
-
-  const { points, pathD, areaD } = useMemo(() => {
+  const { points, pathD, areaD, itemWidth } = useMemo(() => {
     const values = attendanceData.map((item) => item.present)
     const minValue = Math.min(...values) - 10
     const maxValue = Math.max(...values) + 10
     const innerWidth = chartWidth - paddingX * 2
     const innerHeight = chartHeight - paddingY * 2
+    const itemWidth = innerWidth / (attendanceData.length - 1)
 
     const mappedPoints = attendanceData.map((item, index) => {
       const x = paddingX + (index * innerWidth) / (attendanceData.length - 1)
-      const y = chartHeight - paddingY - ((item.present - minValue) * innerHeight) / (maxValue - minValue)
+      const y =
+        chartHeight -
+        paddingY -
+        ((item.present - minValue) * innerHeight) / (maxValue - minValue)
+
       return { x, y }
     })
 
-    // Create a smooth curve
     let linePath = `M ${mappedPoints[0].x} ${mappedPoints[0].y}`
+
     for (let i = 0; i < mappedPoints.length - 1; i++) {
       const p0 = mappedPoints[i]
       const p1 = mappedPoints[i + 1]
@@ -42,11 +46,20 @@ const AttendanceTrendCard = () => {
       const cp1y = p0.y
       const cp2x = p0.x + (p1.x - p0.x) / 2
       const cp2y = p1.y
+
       linePath += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${p1.x} ${p1.y}`
     }
 
-    const areaPath = `${linePath} L ${mappedPoints[mappedPoints.length - 1].x} ${chartHeight - paddingY} L ${mappedPoints[0].x} ${chartHeight - paddingY} Z`
-    return { points: mappedPoints, pathD: linePath, areaD: areaPath }
+    const areaPath = `${linePath} L ${mappedPoints[mappedPoints.length - 1].x
+      } ${chartHeight - paddingY} L ${mappedPoints[0].x} ${chartHeight - paddingY
+      } Z`
+
+    return {
+      points: mappedPoints,
+      pathD: linePath,
+      areaD: areaPath,
+      itemWidth,
+    }
   }, [])
 
   const activePoint = points[activeIndex]
@@ -55,7 +68,7 @@ const AttendanceTrendCard = () => {
   const attendancePercent = Math.round((activeData.present / total) * 100)
 
   return (
-    <article className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+    <article className="rounded-2xl border border-slate-200 bg-white shadow-sm">
       <div className="border-b border-slate-100 p-5 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="rounded-lg bg-indigo-50 p-2 text-indigo-600">
@@ -63,15 +76,20 @@ const AttendanceTrendCard = () => {
           </div>
           <div>
             <h3 className="text-sm font-bold text-slate-900">Weekly Attendance</h3>
-            <p className="text-xs text-slate-500">Track daily student presence</p>
+            <div className="flex items-center gap-2">
+              <p className="text-xs text-slate-500">Track daily student presence</p>
+              <span className="inline-flex items-center rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-bold text-emerald-600">
+                {attendancePercent}% Avg
+              </span>
+            </div>
           </div>
         </div>
       </div>
 
       <div className="p-5">
         <div className="relative h-[300px] w-full">
-          <svg 
-            className="h-full w-full overflow-visible" 
+          <svg
+            className="h-full w-full overflow-visible"
             viewBox={`0 0 ${chartWidth} ${chartHeight}`}
             preserveAspectRatio="none"
           >
@@ -119,8 +137,8 @@ const AttendanceTrendCard = () => {
             />
 
             {points.map((point, index) => (
-              <g 
-                key={index} 
+              <g
+                key={index}
                 onMouseEnter={() => setActiveIndex(index)}
                 className="cursor-pointer"
               >
@@ -131,6 +149,7 @@ const AttendanceTrendCard = () => {
                   fill="white"
                   stroke="#6366f1"
                   strokeWidth="2"
+                  vectorEffect="non-scaling-stroke"
                 />
                 {index === activeIndex && (
                   <circle
@@ -141,11 +160,11 @@ const AttendanceTrendCard = () => {
                     fillOpacity="0.1"
                   />
                 )}
-                {/* Invisible hover area */}
+                {/* Continuous hover area */}
                 <rect
-                  x={point.x - 20}
+                  x={point.x - itemWidth / 2}
                   y={0}
-                  width="40"
+                  width={itemWidth}
                   height={chartHeight}
                   fill="transparent"
                 />
@@ -158,7 +177,7 @@ const AttendanceTrendCard = () => {
             className="pointer-events-none absolute z-10 -translate-x-1/2 -translate-y-full rounded-xl border border-slate-200 bg-white p-3 shadow-xl transition-all duration-200"
             style={{
               left: `${(activePoint.x / chartWidth) * 100}%`,
-              top: `${(activePoint.y / chartHeight) * 100 - 10}%`,
+              top: `${(activePoint.y / chartHeight) * 100}%`,
             }}
           >
             <div className="flex items-center gap-2 mb-1.5 border-b border-slate-100 pb-1.5">
