@@ -5,14 +5,14 @@ import StatsCards from './StatsCards'
 import QuickActions from './QuickActions'
 import TodaySchedule from './TodaySchedule'
 // import DashboardWelcome from './DashboardWelcome'
-import TopPerformers from './TopPerformers'
+import TopPerformers from '../ClassPerformance/sections/TopPerformers'
 
 const DashboardOverview = () => {
   return (
     <div className="space-y-6 sm:space-y-8 2xl:space-y-10">
       {/* Welcome Banner */}
       {/* <DashboardWelcome /> */}
-      
+
       {/* Top Section: Stats */}
       <StatsCards />
 
@@ -21,10 +21,10 @@ const DashboardOverview = () => {
         {/* Left Column: Primary Content */}
         <div className="lg:col-span-8 space-y-6 xl:space-y-8">
           <AttendanceTrendCard />
-          
+
           {/* Middle Section: Quick Actions */}
           <QuickActions />
-          
+
           <div className="grid gap-6 sm:grid-cols-2 xl:gap-8">
             <EnrollmentCard />
             <TodaySchedule />

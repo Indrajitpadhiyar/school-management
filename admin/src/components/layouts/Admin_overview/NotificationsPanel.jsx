@@ -1,4 +1,4 @@
-import { Bell, Info, CheckCircle2, AlertCircle, Clock } from 'lucide-react'
+import { Info, CheckCircle2, AlertCircle, Clock } from 'lucide-react'
 import { cn } from '../../../utils'
 
 const notifications = [

@@ -18,26 +18,23 @@ const EnrollmentCard = () => {
     const circumference = 2 * Math.PI * radius
     const gap = 4
 
-    let offsetAccumulator = 0
     const mappedSegments = enrollmentData.map((item, index) => {
       const rawLength = (item.value / total) * circumference
       const length = Math.max(rawLength - gap, 8)
+      const currentOffset = enrollmentData.slice(0, index).reduce((acc, curr) => acc + (curr.value / total) * circumference, 0)
       const segment = {
         ...item,
         percentage: Math.round((item.value / total) * 100),
         radius,
         circumference,
         length,
-        strokeDashoffset: -offsetAccumulator,
+        strokeDashoffset: -currentOffset,
       }
-      offsetAccumulator += rawLength
       return { ...segment, index }
     })
 
     return { totalStudents: total, segments: mappedSegments }
   }, [])
-
-  const activeSegment = segments[activeIndex]
 
   return (
     <article className="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">

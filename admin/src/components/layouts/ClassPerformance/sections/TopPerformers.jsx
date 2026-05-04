@@ -1,10 +1,10 @@
 import { Trophy, Star } from 'lucide-react'
-import { cn } from '../../../utils'
+// import { cn } from '../../../utils'
 
 const performers = [
   { name: 'Sarah Johnson', subject: 'Mathematics', score: 98, avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah' },
   { name: 'Michael Chen', subject: 'Physics', score: 95, avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Michael' },
-  { name: 'Emily Davis', subject: 'English', score: 92, avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Emily' },
+  { name: 'Emily Davis', subject: 'English', score: 92, avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Emily' }, 
 ]
 
 const TopPerformers = () => {
@@ -34,7 +34,7 @@ const TopPerformers = () => {
           </div>
         ))}
       </div>
-      
+
       <button className="mt-6 w-full rounded-xl bg-slate-50 py-2.5 text-xs font-bold text-slate-600 transition-colors hover:bg-indigo-50 hover:text-indigo-600">
         View All Faculty
       </button>

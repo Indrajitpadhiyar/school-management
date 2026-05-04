@@ -1,4 +1,4 @@
-import { Menu, Bell, Search, Plus, Calendar } from 'lucide-react'
+import { Menu, Bell, Plus, Calendar } from 'lucide-react'
 
 const DashboardHeader = ({ onMenuClick }) => {
   return (

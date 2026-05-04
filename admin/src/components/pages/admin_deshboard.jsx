@@ -4,6 +4,7 @@ import DashboardOverview from '../layouts/Admin_overview/DashboardOverview'
 import DashboardSidebar from '../layouts/DashboardSidebar'
 import ClassPerformancePage from './ClassPerformancePage'
 import HiringInterviewPage from './HiringInterviewPage'
+import AcademicRecordsPage from './AcademicRecordsPage'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const PlaceholderPage = ({ title }) => (
@@ -31,7 +32,7 @@ const AdminDashboard = () => {
       case "senior":
         return <ClassPerformancePage sectionType={activeSection} />
       case "records":
-        return <PlaceholderPage title="Academic Records" />
+        return <AcademicRecordsPage />
       case "teachers":
         return <PlaceholderPage title="Teacher Performance" />
       case "fees":

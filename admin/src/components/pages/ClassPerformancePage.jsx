@@ -46,14 +46,19 @@ const ClassPerformancePage = ({ sectionType }) => {
       : "Class 9 to 12 performance overview"
 
   useEffect(() => {
-    setLoading(true)
+    let isMounted = true;
     // Simulate API fetch delay
     const timer = setTimeout(() => {
-      setData(getMockData(sectionType))
-      setLoading(false)
+      if (isMounted) {
+        setData(getMockData(sectionType))
+        setLoading(false)
+      }
     }, 800)
 
-    return () => clearTimeout(timer)
+    return () => {
+      isMounted = false;
+      clearTimeout(timer);
+    }
   }, [sectionType])
 
   return (

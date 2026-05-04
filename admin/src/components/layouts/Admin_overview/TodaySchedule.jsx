@@ -1,4 +1,4 @@
-import { Clock, CalendarDays } from 'lucide-react'
+import { CalendarDays } from 'lucide-react'
 import { cn } from '../../../utils'
 
 const events = [

@@ -10,9 +10,12 @@ const ScheduleModal = ({ isOpen, onClose, candidate, onConfirm }) => {
   // Reset form when modal opens
   useEffect(() => {
     if (isOpen) {
-      setDate("")
-      setTime("")
-      setInterviewer("Principal (Self)")
+      const timer = setTimeout(() => {
+        setDate("")
+        setTime("")
+        setInterviewer("Principal (Self)")
+      }, 0)
+      return () => clearTimeout(timer)
     }
   }, [isOpen])
 

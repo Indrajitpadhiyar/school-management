@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { TrendingUp, Users } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { TrendingUp } from 'lucide-react'
 import { cn } from '../../../utils'
 
 const attendanceData = [
