@@ -6,6 +6,7 @@ import ClassPerformancePage from './ClassPerformancePage'
 import HiringInterviewPage from './HiringInterviewPage'
 import AcademicRecordsPage from './AcademicRecordsPage'
 import TeacherPerformancePage from './TeacherPerformancePage'
+import ManageClassesPage from './ManageClassesPage'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const PlaceholderPage = ({ title }) => (
@@ -36,6 +37,8 @@ const AdminDashboard = () => {
         return <AcademicRecordsPage />
       case "teachers":
         return <TeacherPerformancePage />
+      case "classes":
+        return <ManageClassesPage />
       case "fees":
         return <PlaceholderPage title="School Fees" />
       case "expenses":

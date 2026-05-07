@@ -10,6 +10,7 @@ import {
   Settings,
   LogOut,
   ChevronDown,
+  BookMarked,
 } from "lucide-react"
 
 const menuItems = [
@@ -26,6 +27,7 @@ const menuItems = [
     ],
   },
   { id: "teachers", label: "Teacher Performance", icon: GraduationCap },
+  { id: "classes", label: "Add & Manage Classes", icon: BookMarked },
   { id: "fees", label: "School Fees", icon: Wallet },
   { id: "expenses", label: "General Expenses", icon: Receipt },
   { id: "hiring", label: "Hiring & Interviews", icon: UserPlus },
