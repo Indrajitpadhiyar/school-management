@@ -5,6 +5,7 @@ import DashboardSidebar from '../layouts/DashboardSidebar'
 import ClassPerformancePage from './ClassPerformancePage'
 import HiringInterviewPage from './HiringInterviewPage'
 import AcademicRecordsPage from './AcademicRecordsPage'
+import TeacherPerformancePage from './TeacherPerformancePage'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const PlaceholderPage = ({ title }) => (
@@ -34,7 +35,7 @@ const AdminDashboard = () => {
       case "records":
         return <AcademicRecordsPage />
       case "teachers":
-        return <PlaceholderPage title="Teacher Performance" />
+        return <TeacherPerformancePage />
       case "fees":
         return <PlaceholderPage title="School Fees" />
       case "expenses":

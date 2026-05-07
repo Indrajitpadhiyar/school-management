@@ -105,19 +105,19 @@ const PerformanceCharts = () => {
             ))}
           </div>
         </div>
-        
+
         {/* We can use the remaining 2 columns for something else or just have pie take 1 col */}
         <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm lg:col-span-2 bg-gradient-to-br from-indigo-900 to-slate-900 text-white relative overflow-hidden flex flex-col justify-center">
-           <div className="absolute top-0 right-0 p-8 opacity-10">
-             <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
-           </div>
-           <h3 className="text-2xl font-bold mb-2">Analytics Summary</h3>
-           <p className="text-indigo-200 max-w-md text-sm leading-relaxed mb-6">
-             Our data indicates a 12% improvement in overall science scores compared to last term. Consistent engagement with remedial classes has shown a positive correlation with grade improvements in lower percentiles.
-           </p>
-           <button className="self-start px-5 py-2.5 bg-white text-indigo-900 font-semibold rounded-xl text-sm hover:bg-indigo-50 transition-colors shadow-lg shadow-indigo-900/20">
-             Generate Full Analytics Report
-           </button>
+          <div className="absolute top-0 right-0 p-8 opacity-10">
+            <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3v18h18" /><path d="M18 17V9" /><path d="M13 17V5" /><path d="M8 17v-3" /></svg>
+          </div>
+          <h3 className="text-2xl font-bold mb-2">Analytics Summary</h3>
+          <p className="text-indigo-200 max-w-md text-sm leading-relaxed mb-6">
+            Our data indicates a 12% improvement in overall science scores compared to last term. Consistent engagement with remedial classes has shown a positive correlation with grade improvements in lower percentiles.
+          </p>
+          <button className="self-start px-5 py-2.5 bg-white text-indigo-900 font-semibold rounded-xl text-sm hover:bg-indigo-50 transition-colors shadow-lg shadow-indigo-900/20">
+            Generate Full Analytics Report
+          </button>
         </div>
       </div>
     </div>
