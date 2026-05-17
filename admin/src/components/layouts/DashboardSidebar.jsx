@@ -130,8 +130,15 @@ const DashboardSidebar = ({ isOpen, setIsOpen, activeSection, setActiveSection }
 
       <div className="shrink-0 border-t border-slate-100 p-4">
         <div className="space-y-1">
-          <button className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-50 hover:text-slate-900">
-            <Settings size={20} className="text-slate-400" />
+          <button
+            onClick={() => handleSubClick("settings")}
+            className={`flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-colors ${
+              activeSection === "settings"
+                ? "bg-indigo-50 text-indigo-700"
+                : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+            }`}
+          >
+            <Settings size={20} className={activeSection === "settings" ? "text-indigo-600" : "text-slate-400"} />
             Settings
           </button>
           <button className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-rose-600 transition-colors hover:bg-rose-50 hover:text-rose-700">
